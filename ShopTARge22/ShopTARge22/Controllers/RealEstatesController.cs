@@ -4,6 +4,7 @@ using ShopTARge22.Core.Dto;
 using ShopTARge22.Core.ServiceInterface;
 using ShopTARge22.Data;
 using ShopTARge22.Models.RealEstates;
+using ShopTARge22.Models.Spaceships;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ShopTARge22.Controllers
@@ -247,5 +248,24 @@ namespace ShopTARge22.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-    }
+		[HttpPost]
+		public async Task<IActionResult> RemoveImage(ImageViewModel vm)
+		{
+			var dto = new FileToApiDto()
+			{
+				Id = vm.ImageId
+			};
+
+			var image = await _fileServices.RemoveImageFromApi(dto);
+
+			if (image == null)
+			{
+				return RedirectToAction(nameof(Index));
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }
+    
+
