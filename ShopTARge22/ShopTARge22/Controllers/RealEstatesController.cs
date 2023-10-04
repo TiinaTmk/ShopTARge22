@@ -12,15 +12,18 @@ namespace ShopTARge22.Controllers
     {
         private readonly ShopTARge22Context _context;
         private readonly IRealEstatesServices _realEstatesServices;
+        private readonly IFileServices _fileServices;
 
         public RealEstatesController
             (
                 ShopTARge22Context context,
-                IRealEstatesServices realEstates
+                IRealEstatesServices realEstates,
+                IFileServices fileServices
             )
         {
             _context = context;
             _realEstatesServices = realEstates;
+            _fileServices = fileServices;
         }
 
 
