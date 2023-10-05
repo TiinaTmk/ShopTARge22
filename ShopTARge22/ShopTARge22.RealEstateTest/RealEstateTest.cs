@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShopTARge22.ApplicationServices.Services;
 using ShopTARge22.Core.Dto;
 using ShopTARge22.Core.ServiceInterface;
 
@@ -12,7 +13,7 @@ namespace ShopTARge22.RealEstateTest
 	{
 		public async Task ShouldNot_AddEmptyRealEstate_WhenReturnResult()
 
-		{	//Arrange
+		{   //Arrange
 			RealEstateDto realEstate = new();
 
 			realEstate.Address = "asd";
@@ -45,12 +46,26 @@ namespace ShopTARge22.RealEstateTest
 			//peame kutsuma esile meetodi, mis on realEstateService classis
 
 			await Svc<IRealEstatesServices>().DetailsAsync(guid);
-			
+
 			//Assert
 			//assertimise võrdlus, et võrrelda kahte huidi
 			Assert.NotEqual(wrongGuid, guid);
-			
 
+		}
+
+		[Fact]
+		public async Task Should_GetByIdRealEstate_WhenReturnsEqual()
+		{
+			// Arrange
+			Guid databaseGuid = Guid.Parse(Guid.NewGuid().ToString());
+			Guid guid = Guid.Parse("4978d0a4-6357-11ee-8c99-0242ac120002");
+
+
+			// Act
+			await Svc<IRealEstatesServices>().DetailsAsync(guid);
+
+			// Assert
+			Assert.Equal(databaseGuid, guid);
 		}
 	}
 }
