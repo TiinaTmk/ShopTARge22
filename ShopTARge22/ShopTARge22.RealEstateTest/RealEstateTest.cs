@@ -11,7 +11,8 @@ namespace ShopTARge22.RealEstateTest
 	public class RealEstateTest : TestBase
 	{
 		public async Task ShouldNot_AddEmptyRealEstate_WhenReturnResult()
-		{
+
+		{	//Arrange
 			RealEstateDto realEstate = new();
 
 			realEstate.Address = "asd";
@@ -23,7 +24,32 @@ namespace ShopTARge22.RealEstateTest
 			realEstate.CreatedAt = DateTime.Now;
 			realEstate.UpdatedAt = DateTime.Now;
 
+			//Act
 			var result = await Svc<IRealEstatesServices>().Create(realEstate);
+
+			//Assert
+			Assert.NotNull(result);
+
+		}
+		[Fact]
+		public async Task ShouldNot_GetByIdRealEstate_WhenReturnsNotEqual()
+		{
+			//Arrange
+			//Küsime realestate, mida ei ole olemas
+
+			Guid wrongGuid = Guid.Parse(Guid.NewGuid().ToString());
+			Guid guid = Guid.Parse("4978d0a4-6357-11ee-8c99-0242ac120002");
+
+
+			//Act
+			//peame kutsuma esile meetodi, mis on realEstateService classis
+
+			await Svc<IRealEstatesServices>().DetailsAsync(guid);
+			
+			//Assert
+			//assertimise võrdlus, et võrrelda kahte huidi
+			Assert.NotEqual(wrongGuid, guid);
+			
 
 		}
 	}

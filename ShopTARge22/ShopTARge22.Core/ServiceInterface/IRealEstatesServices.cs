@@ -10,5 +10,5 @@ namespace ShopTARge22.Core.ServiceInterface
         Task<RealEstate> Update(RealEstateDto dto);
         Task<RealEstate> DetailsAsync(Guid id);
         Task<RealEstate> Delete(Guid id);
-    }
+		}
 }
