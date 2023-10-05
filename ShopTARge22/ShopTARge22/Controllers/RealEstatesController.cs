@@ -249,14 +249,14 @@ namespace ShopTARge22.Controllers
             return RedirectToAction(nameof(Index));
         }
 		[HttpPost]
-		public async Task<IActionResult> RemoveImage(ImageViewModel vm)
+		public async Task<IActionResult> RemoveImage(RealEstateImageViewModel vm)
 		{
-			var dto = new FileToApiDto()
+			var dto = new FileToDatabaseDto()
 			{
 				Id = vm.ImageId
 			};
 
-			var image = await _fileServices.RemoveImageFromApi(dto);
+			var image = await _fileServices.RemoveImageFromDatabase(dto);
 
 			if (image == null)
 			{
@@ -265,6 +265,7 @@ namespace ShopTARge22.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
+
 	}
 }
     
