@@ -82,6 +82,21 @@ namespace ShopTARge22.RealEstateTest
 		}
 
 
+		[Fact]
+		public async Task ShouldNot_DeleteByIdRealEstate_WhenDidNotDeleteREalEstate()
+		{
+			RealEstateDto realEstate = MockRealEstateData();
+
+			var realEstate1 = await Svc<IRealEstatesServices>().Create(realEstate);
+			var realEstate2 = await Svc<IRealEstatesServices>().Create(realEstate);
+
+			var result = await Svc<IRealEstatesServices>().Delete((Guid)realEstate2.Id);
+
+			Assert.NotEqual(result.Id, realEstate1.Id);
+
+		}
+
+
 		private RealEstateDto MockRealEstateData()
 		{
 			RealEstateDto realEstate = new()
