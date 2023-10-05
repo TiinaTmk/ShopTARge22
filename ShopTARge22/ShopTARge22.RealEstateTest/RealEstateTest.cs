@@ -67,5 +67,34 @@ namespace ShopTARge22.RealEstateTest
 			// Assert
 			Assert.Equal(databaseGuid, guid);
 		}
+
+		[Fact]
+		public async Task Should_DeleteByIdRealEstate_whenDeleteRealEstate()
+		{
+
+			RealEstateDto realEstate = MockRealEstateData();
+
+			var addRealEstate = await Svc<IRealEstatesServices>().Create(realEstate);
+			var result = await Svc<IRealEstatesServices>().Delete((Guid)addRealEstate.Id);
+
+
+			Assert.Equal(result, addRealEstate);
+		}
+
+
+		private RealEstateDto MockRealEstateData()
+		{
+			RealEstateDto realEstate = new()
+			{
+				Address = "asd",
+				SizeSqrM = 123,
+				RoomCount = 5,
+				Floor = 3,
+				BuildingType = "asd",
+				BuiltInYear = DateTime.Now,
+				CreatedAt = DateTime.Now,
+			};
+			return realEstate;
+		}
 	}
 }
