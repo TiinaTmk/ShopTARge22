@@ -97,6 +97,51 @@ namespace ShopTARge22.RealEstateTest
 		}
 
 
+
+		[Fact]
+		public async Task Should_UpdateRealEstate_WhenUpdateData()
+		{
+			//vaja luua guid, mida hakkame kasutama update puhul
+
+			var guid = new Guid("4978d0a4-6357-11ee-8c99-0242ac120002");
+
+			RealEstateDto dto = MockRealEstateData();
+
+			//vaja saada domainist andmed kätte
+			//kasutam domaini andmeid
+			RealEstateDto realEstate = new();
+
+			realEstate.Id = Guid.Parse("4978d0a4-6357-11ee-8c99-0242ac120002");
+			realEstate.Address = "Address123";
+			realEstate.SizeSqrM = 890;
+			realEstate.RoomCount = 9;
+			realEstate.Floor = 9;
+			realEstate.BuildingType = "qwerty";
+			realEstate.BuiltInYear = DateTime.Now.AddYears(1);
+
+			await Svc<IRealEstatesServices>().Update(dto);
+
+			Assert.Equal(realEstate.Id, guid);
+			Assert.DoesNotMatch(realEstate.Address, dto.Address);
+			Assert.DoesNotMatch(realEstate.Floor.ToString(), dto.Floor.ToString());
+			Assert.Equal(realEstate.RoomCount, dto.RoomCount);
+		}
+
+		[Fact]
+		public async Task Should_UpdateRealEstate_WhenUpdateDataVersion2()
+		{
+			RealEstateDto dto = MockRealEstateData();
+			var createRealEstate = await Svc<RealEstatesServices>().Create(dto);
+
+			RealEstateDto update = MockRealEstateData();
+			var result = await Svc<IRealEstatesServices>().Update(update);
+
+			Assert.DoesNotMatch(result.Address, createRealEstate.Address);
+			Assert.NotEqual(result.UpdatedAt, createRealEstate.UpdatedAt);
+			Assert.Equal(result.CreatedAt, createRealEstate.CreatedAt);
+		}
+
+
 		private RealEstateDto MockRealEstateData()
 		{
 			RealEstateDto realEstate = new()
@@ -104,12 +149,28 @@ namespace ShopTARge22.RealEstateTest
 				Address = "asd",
 				SizeSqrM = 123,
 				RoomCount = 5,
-				Floor = 3,
+				Floor = 4,
 				BuildingType = "asd",
 				BuiltInYear = DateTime.Now,
 				CreatedAt = DateTime.Now,
+				UpdatedAt = DateTime.Now,
 			};
 			return realEstate;
 		}
-	}
+
+		private RealEstateDto MockUpdateRealEstateData()
+		{
+			RealEstateDto realEstate = new()
+			{
+				Address = "asdasd",
+				SizeSqrM = 123123,
+				RoomCount = 55,
+				Floor = 33,
+				BuildingType = "asd",
+				BuiltInYear = DateTime.Now.AddYears(1),
+				CreatedAt = DateTime.Now.AddYears(1),
+				UpdatedAt = DateTime.Now.AddYears(1),
+			};
+			return realEstate;
+		}
 }
