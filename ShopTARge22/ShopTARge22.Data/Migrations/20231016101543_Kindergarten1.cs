@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace ShopTARge22.Data.Migrations
 {
-    public partial class _Kindergarten : Migration
+    public partial class Kindergarten1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,4 +34,3 @@ namespace ShopTARge22.Data.Migrations
         }
     }
 }
-

@@ -173,4 +173,5 @@ namespace ShopTARge22.RealEstateTest
 			};
 			return realEstate;
 		}
+	}
 }
