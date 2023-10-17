@@ -3,6 +3,8 @@ using ShopTARge22.Core.Domain;
 using ShopTARge22.Core.Dto;
 using ShopTARge22.Core.ServiceInterface;
 using ShopTARge22.Data;
+using System;
+using System.Threading.Tasks;
 
 namespace ShopTARge22.ApplicationServices.Services
 {
@@ -11,10 +13,7 @@ namespace ShopTARge22.ApplicationServices.Services
         private readonly ShopTARge22Context _context;
 
 
-        public KindergartensServices
-            (
-                ShopTARge22Context context
-            )
+        public KindergartensServices(ShopTARge22Context context)
         {
             _context = context;
         }
@@ -23,17 +22,21 @@ namespace ShopTARge22.ApplicationServices.Services
 
         public async Task<Kindergarten> Create(KindergartenDto dto)
         {
-            Kindergarten kindergarten = new();
+            // Create a new Kindergarten instance
+            Kindergarten kindergarten = new Kindergarten
+            {
 
-            kindergarten.Id = Guid.NewGuid();
-            kindergarten.GroupName = dto.GroupName;
-            kindergarten.ChildrenCount = dto.ChildrenCount;
-            kindergarten.KindergartenName = dto.KindergartenName;
-            kindergarten.Teacher = dto.Teacher;
-            kindergarten.CreatedAt = DateTime.Now;
-            kindergarten.UpdatedAt = DateTime.Now;
+                Id = Guid.NewGuid(),
+                GroupName = dto.GroupName,
+                ChildrenCount = dto.ChildrenCount,
+                KindergartenName = dto.KindergartenName,
+                Teacher = dto.Teacher,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+            };
 
-            await _context.Kindergartens.AddAsync(kindergarten);
+            // Add the new Kindergarten to the context and save changes
+            _context.Kindergartens.Add(kindergarten);
             await _context.SaveChangesAsync();
 
             return kindergarten;
@@ -42,9 +45,15 @@ namespace ShopTARge22.ApplicationServices.Services
 
         public async Task<Kindergarten> Update(KindergartenDto dto)
         {
-            Kindergarten kindergarten= new();
+            // Retrieve the existing Kindergarten by Id
+            Kindergarten kindergarten = await _context.Kindergartens.FindAsync(dto.Id);
 
-            kindergarten.Id = Guid.NewGuid();
+            if (kindergarten == null)
+            {
+                return null; // Kindergarten not found, handle appropriately
+            }
+
+            // Update properties from the DTO
             kindergarten.GroupName = dto.GroupName;
             kindergarten.ChildrenCount = dto.ChildrenCount;
             kindergarten.KindergartenName = dto.KindergartenName;
@@ -52,7 +61,7 @@ namespace ShopTARge22.ApplicationServices.Services
             kindergarten.CreatedAt = dto.CreatedAt;
             kindergarten.UpdatedAt = DateTime.Now;
 
-
+            // Update the Kindergarten entity in the context and save changes
             _context.Kindergartens.Update(kindergarten);
             await _context.SaveChangesAsync();
 
@@ -60,24 +69,29 @@ namespace ShopTARge22.ApplicationServices.Services
         }
 
 
+
+
         public async Task<Kindergarten> DetailsAsync(Guid id)
         {
-            var result = await _context.Kindergartens
-                .FirstOrDefaultAsync(x => x.Id == id);
-
+            var result = await _context.Kindergartens.FirstOrDefaultAsync(x => x.Id == id);
             return result;
         }
 
-
         public async Task<Kindergarten> Delete(Guid id)
         {
-            var result = await _context.Kindergartens
-                .FirstOrDefaultAsync(x => x.Id == id);
+            // Retrieve the Kindergarten to be deleted
+            var kindergarten = await _context.Kindergartens.FindAsync(id);
 
-            _context.Kindergartens.Remove(result);
+            if (kindergarten == null)
+            {
+                return null; // Kindergarten not found, handle appropriately
+            }
+
+            // Remove the Kindergarten entity from the context and save changes
+            _context.Kindergartens.Remove(kindergarten);
             await _context.SaveChangesAsync();
 
-            return result;
+            return kindergarten;
         }
     }
 }
