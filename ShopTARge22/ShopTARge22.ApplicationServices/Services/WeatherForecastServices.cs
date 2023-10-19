@@ -6,7 +6,9 @@ namespace ShopTARge22.ApplicationServices.Services
     {
         WeatherResponseRootDto IWeatherForecastServices.GetForecast(string city)
         {
-
+            string IdOpenWeather = "your password";
+            string url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={IdOpenWeather}";
+            return null; 
         }
     }
 }
