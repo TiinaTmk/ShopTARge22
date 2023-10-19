@@ -155,6 +155,8 @@ namespace ShopTARge22.RealEstateTest
 
 			var nullId = nullUpdate.Id;
 
+			Assert.True(dto.Id == nullId);
+
 		}
 
 
