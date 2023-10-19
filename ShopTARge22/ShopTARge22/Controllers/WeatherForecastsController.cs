@@ -26,5 +26,21 @@ namespace ShopTARge22.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public IActionResult SearchCity(SearchCityViewModel model)
+        {
+            if(ModelState.IsValid) 
+            { 
+                return RedirectToAction("City", "WeatherForecasts", new {city = model.CityName});
+            }
+
+            return View(model);
+        }
+
+        public IActionResult City(string city)
+        {
+            return View();
+        }
     }
 }
