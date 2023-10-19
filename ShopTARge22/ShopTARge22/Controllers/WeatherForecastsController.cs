@@ -20,7 +20,7 @@ namespace ShopTARge22.Controllers
 
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult SearchCity()
         {
         SearchCityViewModel model = new();
 
