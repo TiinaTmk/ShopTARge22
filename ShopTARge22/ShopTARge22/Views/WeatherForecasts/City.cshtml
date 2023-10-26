@@ -1,0 +1,39 @@
+﻿@model ShopTARge22.Models.Forecast.OpenWeatherViewModel;
+<h1>City</h1>
+
+<div class="container">
+    <h2>Foreast for the selected city</h2>
+    </hr>
+    <dl class="row">
+        <div cite="form-group row">
+            <label asp-for="Temp" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Temp)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="FeelsLike" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.FeelsLike)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Description)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="Pressure" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Pressure)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="Humidity" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Humidity)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="WindSpeed" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.WindSpeed)
+        </div>
+
+    </dl>
+</div>
