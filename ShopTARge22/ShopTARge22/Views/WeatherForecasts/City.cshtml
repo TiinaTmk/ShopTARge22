@@ -1,18 +1,19 @@
 ﻿@model ShopTARge22.Models.Forecast.OpenWeatherViewModel;
-<h1>City</h1>
 
 <div class="container">
     <h2>Foreast for the selected city</h2>
-    </hr>
-    <dl class="row">
+    <h2>@Html.DisplayFor(model => model.City)</h2>
+    <hr />
+    <dl class="row text-dark">
         <div cite="form-group row">
             <label asp-for="Temp" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Temp)
+            @Html.DisplayFor(model => model.Temp) °C
+           
         </div>
 
         <div cite="form-group row">
             <label asp-for="FeelsLike" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.FeelsLike)
+            @Html.DisplayFor(model => model.FeelsLike) °C
         </div>
 
         <div cite="form-group row">
@@ -35,11 +36,19 @@
             @Html.DisplayFor(model => model.WindSpeed)
         </div>
 
+   @*@ <div class="container">
+       <div class="form-group col-md-offset-3" col-md-5>
+            <a asp-action="Index" asp-controller="WeatherForecasts" class="btn btn-primary">Back</a>
+        </div>
+    *@
+    
+        </dl>
+
         <div class="container">
-            <div class="form-group col-md-offset-3" col-md-5>
-                <a asp-action="Index" asp-controller ="WeatherForecasts" class="btn btn-primary">Back</a>
-            </div>
+            <form method="get">
+                <button asp-controller="WeatherForecasts" asp-action="Index" class="btn btn-success">Back</button>
+            </form>
         </div>
 
-    </dl>
-</div>
+
+            
