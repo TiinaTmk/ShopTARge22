@@ -1,8 +1,26 @@
-﻿@model IEnumerable<ShopTARge22.Models.Kindergartens.KindergartenIndexViewModel>
+﻿@{
+    ViewData["Title"] = "Kindergartens";
+}
+
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>Hielo</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/css/main.css">
+</head>
+</html>
+
+
+@model IEnumerable<ShopTARge22.Models.Kindergartens.KindergartenIndexViewModel>
 
 @{
     int rowNumber = 1;
 }
+
 
 <div>
     <a asp-action="create" asp-controller="Kindergartens" type="submit" class="btn btn-primary">Create</a>
@@ -45,3 +63,6 @@
         </tbody>
     </table>
 </form>
+
+
+
