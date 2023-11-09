@@ -10,7 +10,7 @@ namespace ShopTARge22.Core.Dto.CocktailsDtos
 	public class CocktailRootDto
 	{
 		[JsonPropertyName("drinks")]
-		public Drink Drink { get; set; }
+		public List<Drink> Drinks { get; set; }
 	}
 
 	public class Drink

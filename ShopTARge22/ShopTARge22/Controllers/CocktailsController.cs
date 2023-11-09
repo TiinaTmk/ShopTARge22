@@ -98,8 +98,7 @@ namespace ShopTARge22.Controllers
 			vm.DateModified = dto.DateModified;
 
 
-
-			return View();
+			return View(vm);
 		}
 	}
 }

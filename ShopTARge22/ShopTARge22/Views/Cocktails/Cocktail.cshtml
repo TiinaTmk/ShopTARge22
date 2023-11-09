@@ -1,1 +1,53 @@
-﻿Result page
+﻿@model ShopTARge22.Models.Cocktails.CocktailViewModel;
+
+<div class="container">
+    <h2>Foreast for the selected city</h2>
+    <h2>@Html.DisplayFor(model => model.StrDrink)</h2>
+    <hr />
+    <dl class="row text-dark">
+        <div cite="form-group row">
+            <label asp-for="IdDrink" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.IdDrink)
+
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="StrDrinkAlternate" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.StrDrinkAlternate)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="StrTags" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.StrTags)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="StrVideo" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.StrVideo)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="StrCategory" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.StrCategory)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="StrIBA" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.StrIBA)
+        </div>
+
+        @*@ <div class="container">
+        <div class="form-group col-md-offset-3" col-md-5>
+        <a asp-action="Index" asp-controller="WeatherForecasts" class="btn btn-primary">Back</a>
+        </div>
+        *@
+
+    </dl>
+
+    <div class="container">
+        <form method="get">
+            <button asp-controller="Cocktails" asp-action="Index" class="btn btn-success">Back</button>
+        </form>
+    </div>
+
+
