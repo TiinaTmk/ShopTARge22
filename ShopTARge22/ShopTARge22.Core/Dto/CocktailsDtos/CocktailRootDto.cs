@@ -16,8 +16,7 @@ namespace ShopTARge22.Core.Dto.CocktailsDtos
 	public class Drink
 	{
 		// Root myDeserializedClass = JsonSerializer.Deserialize<Root>(myJsonResponse);
-		public class Root
-		{
+		
 			[JsonPropertyName("idDrink")]
 			public string IdDrink { get; set; }
 
@@ -174,4 +173,4 @@ namespace ShopTARge22.Core.Dto.CocktailsDtos
 
 
 	}
-}
+
