@@ -1,47 +1,14 @@
-﻿@model ShopTARge22.Models.ChuckNorris.OpenChuckNorrisViewModel;
+﻿@model ShopTARge22.Models.ChuckNorris.ChuckNorrisViewModel
 
 <div class="container">
-    <h2>Foreast for the selected categories</h2>
+    <h2>Today's Chuck Norris Joke is:</h2>
     <h2>@Html.DisplayFor(model => model.Categories)</h2>
     <hr />
-    <dl class="row text-dark">
-        <div cite="form-group row">
-            <label asp-for="Created_At" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Created_At) °C
 
-        </div>
-
-        <div cite="form-group row">
-            <label asp-for="Icon_url" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Icon_url) °C
-        </div>
-
-        <div cite="form-group row">
-            <label asp-for="Id" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Id)
-        </div>
-
-        <div cite="form-group row">
-            <label asp-for="Updated_At" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Updated_At)
-        </div>
-
-        <div cite="form-group row">
-            <label asp-for="Url" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Url)
-        </div>
-
-        <div cite="form-group row">
+       
+        <div class="form-group row">
             <label asp-for="Value" class="col-sm-2 col-form-label"></label>
             @Html.DisplayFor(model => model.Value)
         </div>
-
-
-
-        <div class="container">
-            <form method="get">
-                <button asp-controller="ChuckNorris" asp-action="Index" class="btn btn-success">Back</button>
-            </form>
-        </div>
-
-
+    </dl>
+</div>
