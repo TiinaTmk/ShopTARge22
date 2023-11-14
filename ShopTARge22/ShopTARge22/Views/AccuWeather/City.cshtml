@@ -1,19 +1,22 @@
 ﻿@model ShopTARge22.Models.AccuWeather.OpenAccuWeatherViewModel;
 
 <div class="container">
-    <h2>Forecast for the selected city</h2>
-    <h2>@Html.DisplayFor(model => model.ID)</h2>
+    <h2>Accuweather forecast</h2>
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
+    <div cite="form-group row">
+        <label asp-for="ID" class="col-sm-2 col-form-label"></label>
+        @Html.DisplayFor(model => model.ID)
+    </div>
     <dl class="row text-dark">
         <div cite="form-group row">
             <label asp-for="LocalizedName" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.LocalizedName) °C
-
+            @Html.DisplayFor(model => model.LocalizedName)
         </div>
 
         <div cite="form-group row">
             <label asp-for="EnglishName" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.EnglishName) °C
+            @Html.DisplayFor(model => model.EnglishName)
         </div>
 
         <div cite="form-group row">

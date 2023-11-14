@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Nancy.Json;
 using ShopTARge22.Core.Dto.AccuWeatherDtos;
-using ShopTARge22.Core.Dto.CocktailsDtos;
-using ShopTARge22.Core.Dto.WeatherDtos;
 using ShopTARge22.Core.ServiceInterface;
 
 namespace ShopTARge22.ApplicationServices.Services
@@ -19,7 +14,7 @@ namespace ShopTARge22.ApplicationServices.Services
 
 			{
 				string apiKey = "RrVGfdIuGC7bP35fMhw74ldzSRSz9pBi";
-				string url = $"https://dataservice.accuweather.com/locations/v1/cities/search?q={dto.LocalizedName}&apikey={apiKey}";
+				string url = $"https://dataservice.accuweather.com/locations/v1/cities/search?q={dto.Name}&apikey={apiKey}";
 
 				using (WebClient client = new WebClient())
 				{
@@ -28,10 +23,10 @@ namespace ShopTARge22.ApplicationServices.Services
 
 					dto.ID = accuweatherResult.ID;
 					dto.LocalizedName = accuweatherResult.LocalizedName;
-					dto.EnglishName = accuweatherResult.LocalizedName;
+					dto.EnglishName = accuweatherResult.EnglishName;
 					dto.Level = accuweatherResult.Level;
-					dto.LocalizedType = accuweatherResult.LocalizedName;
-					dto.EnglishType = accuweatherResult.LocalizedName;
+					dto.LocalizedType = accuweatherResult.LocalizedType;
+					dto.EnglishType = accuweatherResult.EnglishType;
 					dto.CountryID = accuweatherResult.CountryID;
 				}
 				return dto;
