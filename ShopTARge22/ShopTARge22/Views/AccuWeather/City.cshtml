@@ -1,0 +1,53 @@
+﻿@model ShopTARge22.Models.AccuWeather.OpenAccuWeatherViewModel;
+
+<div class="container">
+    <h2>Forecast for the selected city</h2>
+    <h2>@Html.DisplayFor(model => model.ID)</h2>
+    <hr />
+    <dl class="row text-dark">
+        <div cite="form-group row">
+            <label asp-for="LocalizedName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.LocalizedName) °C
+
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="EnglishName" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.EnglishName) °C
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="Level" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.Level)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="LocalizedType" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.LocalizedType)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="EnglishType" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.EnglishType)
+        </div>
+
+        <div cite="form-group row">
+            <label asp-for="CountryID" class="col-sm-2 col-form-label"></label>
+            @Html.DisplayFor(model => model.CountryID)
+        </div>
+
+        @*@ <div class="container">
+        <div class="form-group col-md-offset-3" col-md-5>
+        <a asp-action="Index" asp-controller="WeatherForecasts" class="btn btn-primary">Back</a>
+        </div>
+        *@
+
+    </dl>
+
+    <div class="container">
+        <form method="get">
+            <button asp-controller="AccuWeather" asp-action="Index" class="btn btn-success">Back</button>
+        </form>
+    </div>
+
+
