@@ -51,11 +51,11 @@ public class AccuWeatherServices : IAccuWeatherServices
                 List<AccuWeatherRootDto> accuweatherResult = new JavaScriptSerializer().Deserialize<List<AccuWeatherRootDto>>(json);
 
                 dto.Temperature = accuweatherResult[0].Temperature.Metric.Value;
-                dto.TempFeelsLike = accuweatherResult[0].TempFeelsLike.Metric.Value;
-                dto.Humidity = accuweatherResult[0].Humidity;
+                dto.RealFeelTemperature = accuweatherResult[0].RealFeelTemperature.Metric.Value;
+                dto.RelativeHumidity = accuweatherResult[0].Humidity;
                 dto.Pressure = accuweatherResult[0].Pressure.Metric.Value;
-                dto.WindSpeed = accuweatherResult[0].WindSpeed.Speed.Metric.Value;
-                dto.WeatherCondition = accuweatherResult[0].WeatherCondition;
+                dto.Wind = accuweatherResult[0].Wind.Speed.Metric.Value;
+                dto.WeatherText = accuweatherResult[0].WeatherText;
             }
         }
 

@@ -18,7 +18,7 @@ namespace ShopTARge22.Core.Dto.AccuWeatherDtos
         public int EpochTime { get; set; }
 
         [JsonPropertyName("weatherText")]
-        public string WeatherCondition { get; set; }
+        public string WeatherText { get; set; }
 
         [JsonPropertyName("weatherIcon")]
         public int WeatherIcon { get; set; }
@@ -36,7 +36,7 @@ namespace ShopTARge22.Core.Dto.AccuWeatherDtos
         public Temperature Temperature { get; set; }
 
         [JsonPropertyName("realFeelTemperature")]
-        public RealFeelTemperature TempFeelsLike { get; set; }
+        public RealFeelTemperature RealFeelTemperature { get; set; }
 
         [JsonPropertyName("realFeelTemperatureShade")]
         public RealFeelTemperatureShade RealFeelTemperatureShade { get; set; }
@@ -51,7 +51,7 @@ namespace ShopTARge22.Core.Dto.AccuWeatherDtos
         public DewPoint DewPoint { get; set; }
 
         [JsonPropertyName("wind")]
-        public Wind WindSpeed { get; set; }
+        public Wind Wind { get; set; }
 
         [JsonPropertyName("windGust")]
         public WindGust WindGust { get; set; }
