@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopTARge22.Core.Dto.AccuWeatherDtos;
+using ShopTARge22.Core.Dto.AccuWeatherLocationDtos;
 using ShopTARge22.Core.ServiceInterface;
 using ShopTARge22.Models.AccuWeather;
 
@@ -28,39 +29,42 @@ namespace ShopTARge22.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult SearchCity(SearchAccuWeatherCityViewModel model)
+		public IActionResult SearchCity(AccuWeatherCityViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
-				return RedirectToAction("City", "WeatherForecasts", new { city = model.CityName });
+				return RedirectToAction("City", "AccuWeathers", new { city = model.City });
 			}
 
 			return View(model);
 		}
 
-		[HttpGet]
-		public IActionResult City(string localizedName)
-		{
-			OpenAccuWeatherResultDto dto = new();
-			dto.LocalizedName = localizedName;
+        [HttpGet]
+        public async Task<IActionResult> City(string city)
+        {
+            AccuWeatherResultDto dto = new();
+            AccuWeatherLocationResultDto dto1 = new();
+
+            dto1.City = city;
+
+            //_accuWeatherServices.AccuWeatherGet(dto1);
+
+            await _accuWeatherServices.AccuWeatherResult(dto, dto1);
+
+            AccuWeatherViewModel vm = new();
+            vm.City = dto1.City;
+            vm.Temperature = dto.Temperature;
+            vm.RealFeelTemperature = dto.RealFeelTemperature;
+            vm.RelativeHumidity = dto.RelativeHumidity;
+            vm.Wind = dto.Wind;
+            vm.Pressure = dto.Pressure;
+            vm.WeatherText = dto.WeatherText;
 
 
-			_accuWeatherServices.OpenAccuWeatherResult(dto);
-			OpenAccuWeatherViewModel vm = new();
+            return View(vm);
+        }
 
-
-			vm.LocalizedName = dto.LocalizedName;
-			vm.EnglishName = dto.EnglishName;
-			vm.Level = dto.Level;
-			vm.LocalizedType = dto.LocalizedType;
-			vm.EnglishType = dto.EnglishType;
-			vm.CountryID = dto.CountryID;
-			
-
-
-			return View(vm);
-		}
-	}
+    }
 }
 
-	
+

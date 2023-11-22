@@ -1,56 +1,42 @@
-﻿@model ShopTARge22.Models.AccuWeather.OpenAccuWeatherViewModel;
+﻿@model ShopTARge22.Models.AccuWeather.AccuWeatherViewModel;
+
 
 <div class="container">
-    <h2>Accuweather forecast</h2>
-    <h2>@Html.DisplayFor(model => model.Name)</h2>
-    <hr />
-    <div cite="form-group row">
-        <label asp-for="ID" class="col-sm-2 col-form-label"></label>
-        @Html.DisplayFor(model => model.ID)
-    </div>
-    <dl class="row text-dark">
-        <div cite="form-group row">
-            <label asp-for="LocalizedName" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.LocalizedName)
-        </div>
+    <header class="major">
+        <h2>@Html.DisplayFor(model => model.City)</h2>
+    </header>
+    <h2>AccuWeather for the selected city</h2>
+    <ul class="features">
 
-        <div cite="form-group row">
-            <label asp-for="EnglishName" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.EnglishName)
-        </div>
+        <li>
+            <label asp-for="Temperature" class="col-sm-2 col-form-label"></label>
+            <span>@Model.Temperature °C</span>
+        </li>
+        <li>
+            <label asp-for="RealFeelTemperature" class="col-sm-2 col-form-label"></label>
+            <span>@Model.RealFeelTemperature °C</span>
+        </li>
+        <li>
+            <label asp-for="RelativeHumidity" class="col-sm-2 col-form-label"></label>
+            <span>@Model.RelativeHumidity %</span>
+        </li>
+        <li>
+            <label asp-for="Wind" class="col-sm-2 col-form-label"></label>
+            <span>@Model.Wind km/h</span>
+        </li>
+        <li>
+            <label asp-for="Pressure" class="col-sm-2 col-form-label"></label>
+            <span>@Model.Pressure hPa</span>
+        </li>
+        <li>
+            <label asp-for="WeatherText" class="col-sm-2 col-form-label"></label>
+            <span>@Model.WeatherText </span>
+        </li>
 
-        <div cite="form-group row">
-            <label asp-for="Level" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.Level)
-        </div>
+</div>
 
-        <div cite="form-group row">
-            <label asp-for="LocalizedType" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.LocalizedType)
-        </div>
-
-        <div cite="form-group row">
-            <label asp-for="EnglishType" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.EnglishType)
-        </div>
-
-        <div cite="form-group row">
-            <label asp-for="CountryID" class="col-sm-2 col-form-label"></label>
-            @Html.DisplayFor(model => model.CountryID)
-        </div>
-
-        @*@ <div class="container">
-        <div class="form-group col-md-offset-3" col-md-5>
-        <a asp-action="Index" asp-controller="WeatherForecasts" class="btn btn-primary">Back</a>
-        </div>
-        *@
-
-    </dl>
-
-    <div class="container">
-        <form method="get">
-            <button asp-controller="AccuWeather" asp-action="Index" class="btn btn-success">Back</button>
-        </form>
-    </div>
-
-
+<div class="container">
+    <form method="get">
+        <button asp-action="Index" asp-controller="AccuWeather" class="button">Back</button>
+    </form>
+</div>
