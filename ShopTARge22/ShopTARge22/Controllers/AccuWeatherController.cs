@@ -29,11 +29,11 @@ namespace ShopTARge22.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult SearchCity(AccuWeatherCityViewModel model)
+		public IActionResult City(AccuWeatherCityViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
-				return RedirectToAction("City", "AccuWeathers", new { city = model.City });
+				return RedirectToAction("City", "AccuWeather", new { city = model.City });
 			}
 
 			return View(model);
@@ -54,11 +54,11 @@ namespace ShopTARge22.Controllers
             AccuWeatherViewModel vm = new();
             vm.City = dto1.City;
             vm.Temperature = dto.Temperature;
-            vm.RealFeelTemperature = dto.RealFeelTemperature;
-            vm.RelativeHumidity = dto.RelativeHumidity;
-            vm.Wind = dto.Wind;
+            vm.TempFeelsLike = dto.TempFeelsLike;
+            vm.Humidity = dto.Humidity;
             vm.Pressure = dto.Pressure;
-            vm.WeatherText = dto.WeatherText;
+            vm.WindSpeed = dto.WindSpeed;
+            vm.WeatherCondition = dto.WeatherCondition;
 
 
             return View(vm);
