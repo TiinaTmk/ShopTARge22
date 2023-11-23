@@ -1,7 +1,8 @@
+global using ShopTARge22.ApplicationServices.Services;
+global using ShopTARge22.Core.Dto.EmailDtos;
 using ShopTARge22.Data;
 using Microsoft.EntityFrameworkCore;
 using ShopTARge22.Core.ServiceInterface;
-using ShopTARge22.ApplicationServices.Services;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,9 @@ builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
 builder.Services.AddScoped<IChuckNorrisServices, ChuckNorrisServices>();
 builder.Services.AddScoped<ICocktailServices, CocktailServices>();
 builder.Services.AddScoped<IAccuWeatherServices, AccuWeatherServices>();
+builder.Services.AddScoped<IEmailServices, EmailServices>();
+
+
 
 builder.Services.AddDbContext<ShopTARge22Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
