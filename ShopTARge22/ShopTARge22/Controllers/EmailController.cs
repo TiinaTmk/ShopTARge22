@@ -1,12 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MailKit.Security;
+using Microsoft.AspNetCore.Mvc;
+using MimeKit.Text;
+using MimeKit;
+using ShopTARge22.Core.ServiceInterface;
 
 namespace ShopTARge22.Controllers
-{
+{ 
+    [Route("api/[controller]")]
+    [ApiController]
     public class EmailController : Controller
     {
-        public IActionResult Index()
+        private readonly IEmailServices _emailServices;
+        
+        public EmailController(IEmailServices emailServices)
         {
-            return View();
+        _emailServices = emailServices;
+        }
+
+        [HttpPost]
+        public IActionResult SendEmail(EmailDto request)
+        {
+            _emailServices.SendEmail(request);
+            return Ok();
         }
     }
 }
+
