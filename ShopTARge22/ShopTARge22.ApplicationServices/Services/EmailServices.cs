@@ -24,16 +24,16 @@ namespace ShopTARge22.ApplicationServices.Services
         {
             _config = config;
         }
-        public void SendEmail(EmailDto request)
+        public void SendEmail(EmailDto dto)
         {
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUserName").Value));
-            email.To.Add(MailboxAddress.Parse("request.To"));
-            email.Subject = "request.Subject";
-            email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
+            email.From.Add(MailboxAddress.Parse("EmailUserName"));
+            email.To.Add(MailboxAddress.Parse(dto.To));
+            email.Subject = dto.Subject;
+            email.Body = new TextPart(TextFormat.Html) { Text = dto.Body };
 
             using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+            smtp.Connect(_config.GetSection("EmailHost").Value, 587, false);
             smtp.Authenticate(_config.GetSection("EmailUserName").Value, _config.GetSection("EmailPassword").Value);
             smtp.Send(email);
             smtp.Disconnect(true);
