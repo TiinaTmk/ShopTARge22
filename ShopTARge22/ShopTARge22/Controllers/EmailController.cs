@@ -6,8 +6,6 @@ using ShopTARge22.Core.ServiceInterface;
 
 namespace ShopTARge22.Controllers
 { 
-    [Route("api/[controller]")]
-    [ApiController]
     public class EmailController : Controller
     {
         private readonly IEmailServices _emailServices;
