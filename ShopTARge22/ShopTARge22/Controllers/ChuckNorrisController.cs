@@ -5,46 +5,52 @@ using ShopTARge22.Models.ChuckNorris;
 
 namespace ShopTARge22.Controllers
 {
-	public class ChuckNorrisController : Controller
-	{
-		private readonly IChuckNorrisServices _chuckNorrisServices;
+    public class ChuckNorrisController : Controller
+    {
+        private readonly IChuckNorrisServices _chuckNorrisServices;
 
-		public ChuckNorrisController
-			(
-				IChuckNorrisServices chuckNorrisServices
-			)
-		{
-			_chuckNorrisServices = chuckNorrisServices;
-		}
+        public ChuckNorrisController
+            (
+                IChuckNorrisServices chuckNorrisServices
+            )
+        {
+            _chuckNorrisServices = chuckNorrisServices;
+        }
 
-		[HttpGet]
-		public IActionResult Index()
-		{
-			return View();
-		}
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		[HttpPost]
-		public IActionResult SearchChuckNorrisJokes(ChuckNorrisViewModel model)
-		{
-			//if(ModelState.IsValid)
-			//{
-			return RedirectToAction("Joke", "ChuckNorris");
-			//}
+        [HttpPost]
+        public IActionResult SearchChuckNorrisJokes(ChuckNorrisViewModel model)
+        {
+            //if(ModelState.IsValid)
+            //{
+            return RedirectToAction(nameof(Joke));
+            //}
 
-			//return View(model);
-		}
+            //return View(model);
+        }
 
-		[HttpGet]
-		public IActionResult Joke()
-		{
-			ChuckNorrisResultDto dto = new();
+        [HttpGet]
+        public IActionResult Joke()
+        {
+            ChuckNorrisResultDto dto = new();
 
-			_chuckNorrisServices.ChuckNorrisResult(dto);
-			ChuckNorrisViewModel vm = new();
+            _chuckNorrisServices.ChuckNorrisResult(dto);
+            ChuckNorrisViewModel vm = new();
 
-			vm.Value = dto.Value;
+            vm.Categories = dto.Categories;
+            vm.CreatedAt = dto.CreatedAt;
+            vm.IconUrl = dto.IconUrl;
+            vm.Id = dto.Id;
+            vm.UpdatedAt = dto.UpdatedAt;
+            vm.Url = dto.Url;
+            vm.Value = dto.Value;
 
-			return View(vm);
-		}
-	}
+            return View(vm);
+        }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ShopTARge22.Core.Domain;
 
@@ -15,6 +16,7 @@ namespace ShopTARge22.Data
         public DbSet<RealEstate> RealEstates { get; set; }
         public DbSet<Kindergarten> Kindergartens { get; set; }
         public DbSet<FileToDatabase> FileToDatabases { get; set; }
+        public DbSet<IdentityRole> IdentityRoles { get; set; }
 
     }
 }

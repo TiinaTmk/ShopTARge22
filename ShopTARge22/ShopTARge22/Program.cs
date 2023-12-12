@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopTARge22.Core.ServiceInterface;
 using Microsoft.Extensions.FileProviders;
 using ShopTARge22.Hubs;
-using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,16 +20,13 @@ builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
 builder.Services.AddScoped<IChuckNorrisServices, ChuckNorrisServices>();
 builder.Services.AddScoped<ICocktailServices, CocktailServices>();
 builder.Services.AddScoped<IAccuWeatherServices, AccuWeatherServices>();
-builder.Services.AddScoped<IEmailServices, EmailServices>();
+builder.Services.AddScoped<IEmailsServices, EmailsServices>();
 
 
 
 builder.Services.AddDbContext<ShopTARge22Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<ShopTARge22Context>();
 
 var app = builder.Build();
 
@@ -53,7 +50,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
-app.UseAuthentication(); 
+
 app.UseAuthorization();
 
 

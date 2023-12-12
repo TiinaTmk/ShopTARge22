@@ -29,6 +29,7 @@ namespace ShopTARge22.ApplicationServices.Services
             }
             return dto; 
         }
+
     }
 }
 

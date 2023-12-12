@@ -1,23 +1,22 @@
-﻿using MailKit.Security;
-using Microsoft.AspNetCore.Mvc;
-using MimeKit.Text;
-using MimeKit;
+﻿using Microsoft.AspNetCore.Mvc;
+using ShopTARge22.Core.Dto;
 using ShopTARge22.Core.ServiceInterface;
 using ShopTARge22.Models;
+using ShopTARge22.Models.Emails;
 
 namespace ShopTARge22.Controllers
-{ 
+{
     public class EmailsController : Controller
     {
-        private readonly IEmailServices _emailServices;
-        
-        public EmailsController(IEmailServices emailServices)
+        private readonly IEmailsServices _emailServices;
+
+        public EmailsController(IEmailsServices emailsServices)
         {
-        _emailServices = emailServices;
+            _emailServices = emailsServices;
         }
 
         [HttpGet]
-        public IActionResult Index() 
+        public IActionResult Index()
         {
             return View();
         }
@@ -33,9 +32,8 @@ namespace ShopTARge22.Controllers
             };
 
             _emailServices.SendEmail(dto);
-            return RedirectToAction(nameof(Index));
 
+            return RedirectToAction(nameof(Index));
         }
     }
 }
-
