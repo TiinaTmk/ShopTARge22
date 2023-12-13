@@ -2,7 +2,6 @@
 using ShopTARge22.Core.Dto;
 using ShopTARge22.Core.ServiceInterface;
 using ShopTARge22.Models;
-using ShopTARge22.Models.Emails;
 
 namespace ShopTARge22.Controllers
 {
