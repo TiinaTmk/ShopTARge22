@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShopTARge22.Core.Domain;
@@ -19,6 +20,20 @@ namespace ShopTARge22.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            //siin tehakse logout - logout ko
+            
+            await _signInManager.SignOutAsync();
+
+            //returnib home indexi vaatele
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
