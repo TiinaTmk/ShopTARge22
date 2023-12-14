@@ -20,20 +20,40 @@ namespace ShopTARge22.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null && await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var passwordResetLink = Url.Action("ResetPassword", "Accounts", new { email = model.Email, token = token }, Request.Scheme);
+
+                    //_logger.Log(LogLevel.Warning, passwordResetLink);
+                    return View("ForgotPasswordConfirmation");
+                }
+                return View("ForgotPasswordConfirmation");
+
+            }
+            return View(model);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            //siin tehakse logout - logout ko
-            
             await _signInManager.SignOutAsync();
-
-            //returnib home indexi vaatele
             return RedirectToAction("Index", "Home");
         }
-
-
-        [HttpGet]
         public IActionResult Register()
         {
             return View();
