@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +28,7 @@ namespace ShopTARge22.Controllers
         public async Task<IActionResult> AddPassword()
         {
             var user = await _userManager.GetUserAsync(User);
-            var userHasPassword = await _userManager.HasPasswordAsync(user);    
+            var userHasPassword = await _userManager.HasPasswordAsync(user);
             if (userHasPassword)
             {
                 RedirectToAction("ChangePassword");
@@ -46,15 +48,15 @@ namespace ShopTARge22.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult>AddPassword(AddPasswordViewModel model)
+        public async Task<IActionResult> AddPassword(AddPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync (User);
+                var user = await _userManager.GetUserAsync(User);
                 var result = await _userManager.AddPasswordAsync(user, model.NewPassword);
                 if (!result.Succeeded)
                 {
-                    foreach(var error in result.Errors)
+                    foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
@@ -69,7 +71,7 @@ namespace ShopTARge22.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult>ChangePassword()
+        public async Task<IActionResult> ChangePassword()
         {
             var user = await _userManager.GetUserAsync(User);
             var userHasPassword = await _userManager.HasPasswordAsync(user);
@@ -82,6 +84,31 @@ namespace ShopTARge22.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View();
+                }
+                await _signInManager.RefreshSignInAsync(user);
+                return View("ChangePasswordConfirmation");
+
+            }
+            return View(model);
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -113,7 +140,7 @@ namespace ShopTARge22.Controllers
             }
             return View(model);
         }
-        
+
 
 
         [HttpGet]
@@ -266,5 +293,97 @@ namespace ShopTARge22.Controllers
 
         }
 
+        
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Accounts", new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            return new ChallengeResult(provider, properties);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            LoginViewModel loginViewModel = new()
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            };
+
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+
+                return View("Login", loginViewModel);
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ModelState.AddModelError(string.Empty, "Error loading external login information");
+
+                return View("Login", loginViewModel);
+            }
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            ApplicationUser user = null;
+
+            if (email != null)
+            {
+                user = await _userManager.FindByEmailAsync(email);
+
+                if (user != null && !user.EmailConfirmed)
+                {
+                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+                }
+            }
+
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+            if (signInResult.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                if (email != null)
+                {
+                    if (user == null)
+                    {
+                        user = new ApplicationUser
+                        {
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        };
+
+                        await _userManager.CreateAsync(user);
+
+                        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                        var ConfirmationLink = Url.Action("ConfirmEmail", "Acoounts", new { userId = user.Id, token = token }, Request.Scheme);
+                        // logger.Log(LogLevel.Warning, confirmationLink);
+
+                        ViewBag.ErrorTitle = "Registraion successful";
+                        ViewBag.ErrorMessage = "Before you can login, please confirm your email, by clicking on the confirmation link we have emailed you";
+
+                        return View("Error");
+
+                    }
+                    await _userManager.AddLoginAsync(user, info);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return LocalRedirect(returnUrl);
+                }
+                ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
+                ViewBag.ErroMessage = "Please contact support on asd@asd.com";
+
+                return View("Error");
+            }
+        }
     }
 }
+            
