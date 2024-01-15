@@ -30,8 +30,8 @@ options.SignIn.RequireConfirmedAccount = true)
     .AddDefaultUI();
 
 
-//builder.Services.AddDbContext<ShopTARge22Context>(options =>
-   // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ShopTARge22Context>(options =>
+   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
